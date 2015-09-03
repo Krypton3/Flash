@@ -36,13 +36,14 @@ void Graph::dfs()
     for(int i=0;i<V;i++){
         visited[i]=false;
     }
+    int c=0;
     for(int i=0;i<V;i++){
         if(visited[i]==false){
             dfsRun(i,visited);
-            cout<<endl;
+            c++;
         }
     }
-
+    printf("Here %d Graphs Found\n",c);
 }
 int main()
 {
