@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define INF 1e9
+
+typedef pair<int,int> edge;
+typedef vector edge_vect;
+typedef vector vi;
+
+vector adjList;
+vi dist_to;
+vector<bool> visited;
+
+int main10986()
+{
+int testCase, N, E, S, T;
+int start, end, w,d,u,v;
+
+scanf("%d",&testCase);
+for(int tc=1; tc <= testCase; tc++)
+{
+    scanf("%d %d %d %d",&N,&E,&S,&T);
+
+    adjList.assign(N,edge_vect());
+
+    for(int i=0; i < E; i++)
+    {
+        scanf("%d %d %d", &start, &end, &w);
+        adjList[start].push_back(edge(end,w));
+        adjList[end].push_back(edge(start,w));
+    }
+
+    visited.assign(N,false);
+    dist_to.assign(N,INF);
+    priority_queue<edge,vector,greater> pq;
+
+    dist_to[S] = 0;
+    pq.push(edge(0,S));
+
+    while(!pq.empty())
+    {
+        edge e=pq.top();
+        pq.pop();
+        u = e.second;
+        d = dist_to[e.second];
+        visited[u] = true;
+
+            for(int i=0; i < adjList[u].size();i++)
+            {
+                edge v = adjList[u][i];
+                if(!visited[v.first] && d + v.second < dist_to[v.first])
+                {
+                    dist_to[v.first] = d + v.second;
+                    pq.push(edge(dist_to[v.first],v.first));
+                }
+            }
+    }
+
+    printf("Case #%d: ",tc);
+    if(dist_to[T] != INF)
+        printf("%d\n",dist_to[T]);
+    else
+        printf("%s\n","unreachable");
+
+}
+
+return (0);
+}
