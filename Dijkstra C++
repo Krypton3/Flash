@@ -1,4 +1,3 @@
-//uva 10986
 #include<bits/stdc++.h>
 #define INF 10000000
 using namespace std;
@@ -28,7 +27,7 @@ int d()
         if(u==t){
             break;
         }
-        for(int i=0;g[u].size();i++){
+        for(int i=0;i<g[u].size();i++){
             int v=g[u][i].n;
             int w=g[u][i].w;
             if(dist[v]>dist[u]+w){
@@ -54,7 +53,7 @@ int main()
 {
     int test,u,v,w;
     scanf("%d",&test);
-    for(int p=0;p<test;p++){
+    for(int p=1;p<=test;p++){
         scanf("%d %d %d %d",&n,&m,&s,&t);
         Remove();
         for(int i=0;i<m;i++){
