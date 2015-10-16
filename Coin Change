@@ -1,36 +1,25 @@
-//Author: Krypton3
-//C++ Implementation
-#include<bits/stdc++.h>
-using namespace std;
-int coin[]={50,25,10,5,1};
-int make;
-int dp[6][8000];
-int call(int i,int amount)
-{
-    if(i>=5){
-        if(amount==0){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-    if(dp[i][amount]!=-1){
-        return dp[i][amount];
-    }
-    int ret1=0,ret2=0;
-    if(amount-coin[i]>=0){
-        ret1=call(i,amount-coin[i]);
-    }else{
-        ret1=0;
-    }
-    ret2=call(i+1,amount);
-    return dp[i][amount]=ret1+ret2;
-}
-int main()
-{
-    memset(dp,-1,sizeof(dp));
-    while(scanf("%d",&make)==1){
-        printf("%d\n",call(0,make));
-    }
-    return 0;
+//lightoj 1232
+#include <cstring>
+#include <cstdio>
+
+const int MOD = 100000007;
+
+int dp[10001], coin[100];
+
+int main() {
+	int test, cs, n, i, j, k, c;
+	scanf("%d", &test);
+	for(cs = 1; cs <= test; cs++) {
+		scanf("%d %d", &n, &k);
+		for(i = 0; i < n; i++) scanf("%d", coin + i);
+		memset(dp, 0, sizeof dp); dp[0] = 1;
+		for(i = 0; i < n; i++) {
+			for(j = coin[i]; j <= k; j++) {
+				dp[j] += dp[j-coin[i]];
+				if(dp[j] >= MOD) dp[j] %= MOD;
+			}
+		}
+		printf("Case %d: %d\n", cs, dp[k]);
+	}
+	return 0;
 }
